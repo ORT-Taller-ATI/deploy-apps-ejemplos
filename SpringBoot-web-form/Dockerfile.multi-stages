@@ -1,16 +1,15 @@
 # Stage 1: Build the application
 FROM gradle:7.6.0-jdk17 AS build
 WORKDIR /app
-RUN git clone https://github.com/ORT-Taller-ATI/deploy-apps-ejemplos.git .
 
-# Build the application with Gradle
+RUN git clone https://github.com/ORT-Taller-ATI/deploy-apps-ejemplos.git
+WORKDIR /app/deploy-apps-ejemplos/SpringBoot-web-form
 RUN gradle clean build -x test
 
-# Stage 2: Create a minimal image to run the application
 FROM openjdk:17-jdk-slim
 WORKDIR /app
-COPY --from=build /app/build/libs/webapp-0.0.1-SNAPSHOT.jar webapp.jar
 
+COPY --from=build /app/deploy-apps-ejemplos/SpringBoot-web-form/build/libs/webapp-0.0.1-SNAPSHOT.jar webapp.jar
 EXPOSE 8080
 
 # Run the application
