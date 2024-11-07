@@ -73,3 +73,19 @@ WantedBy=multi-user.target
 sudo systemctl daemon-reload
 sudo systemctl start webapp
 ```
+
+## Despliegue en AWS Beanstalk
+
+### Aplicación SpringBoot con Base de Datos
+
+El archivo a desplegar es el resultado del comando `./gradlew build` que se encuentra en `build/libs/`. Ese archivo JAR contiene a la aplicación. 
+Además, para tener mayor flexibilidad, deberíamos de modificar el `application.properties` para pasar los atributos de configuración de la Base de Datos, por medio de variables de entorno, que luego son configuradas en `AWS Beanstalk`. Para esto, el archivo debería de ser así:
+
+```json
+spring.datasource.url=${SPRING_DATASOURCE_URL}
+spring.datasource.username=${SPRING_DATASOURCE_USERNAME}
+spring.datasource.password=${SPRING_DATASOURCE_PASSWORD}
+spring.datasource.driver-class-name=${SPRING_DATASOURCE_DRIVER_CLASS_NAME}
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.show-sql=true
+```

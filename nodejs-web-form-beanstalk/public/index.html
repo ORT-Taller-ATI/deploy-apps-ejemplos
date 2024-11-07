@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Greeting App</title>
+  <style>
+    body { font-family: Arial, sans-serif; display: flex; align-items: center; justify-content: center; height: 100vh; background-color: #f0f8ff; }
+    .container { text-align: center; padding: 20px; border: 2px solid #ccc; border-radius: 10px; background-color: #ffffff; }
+    input[type="text"] { padding: 10px; font-size: 1.2em; margin: 10px; border: 1px solid #ccc; border-radius: 5px; }
+    button { padding: 10px 20px; font-size: 1em; background-color: #4CAF50; color: white; border: none; border-radius: 5px; cursor: pointer; }
+    button:hover { background-color: #45a049; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Welcome!</h1>
+    <form action="/greet" method="POST">
+      <label for="name">Enter your name:</label><br>
+      <input type="text" id="name" name="name" required><br><br>
+      <button type="submit">Greet Me</button>
+    </form>
+  </div>
+</body>
+</html>
