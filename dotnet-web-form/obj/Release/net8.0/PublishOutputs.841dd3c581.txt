@@ -1,0 +1,7 @@
+/Users/mauricio/Documents/Devel/ORT/taller-ati/deploy-apps-ejemplos/dotnet-web-form/publish/dotnet-web-form
+/Users/mauricio/Documents/Devel/ORT/taller-ati/deploy-apps-ejemplos/dotnet-web-form/publish/appsettings.Development.json
+/Users/mauricio/Documents/Devel/ORT/taller-ati/deploy-apps-ejemplos/dotnet-web-form/publish/appsettings.json
+/Users/mauricio/Documents/Devel/ORT/taller-ati/deploy-apps-ejemplos/dotnet-web-form/publish/dotnet-web-form.dll
+/Users/mauricio/Documents/Devel/ORT/taller-ati/deploy-apps-ejemplos/dotnet-web-form/publish/dotnet-web-form.deps.json
+/Users/mauricio/Documents/Devel/ORT/taller-ati/deploy-apps-ejemplos/dotnet-web-form/publish/dotnet-web-form.runtimeconfig.json
+/Users/mauricio/Documents/Devel/ORT/taller-ati/deploy-apps-ejemplos/dotnet-web-form/publish/dotnet-web-form.pdb

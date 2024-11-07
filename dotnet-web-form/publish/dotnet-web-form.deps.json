@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v8.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v8.0": {
+      "dotnet-web-form/1.0.0": {
+        "runtime": {
+          "dotnet-web-form.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "dotnet-web-form/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

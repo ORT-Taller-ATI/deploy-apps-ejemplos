@@ -1,0 +1,80 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Greeting App";
+}
+
+<h1 class="text-center">Welcome to the Greeting App</h1>
+
+<div class="container">
+    <div class="form-container">
+        <form method="post">
+            <input type="text" name="UserName" placeholder="Enter your name" required class="input">
+            <button type="submit" class="btn">Greet Me</button>
+        </form>
+        @if (Model.UserName != null)
+        {
+            <p class="greeting">Hello, @Model.UserName!</p>
+        }
+    </div>
+</div>
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background: linear-gradient(to right, #6a11cb, #2575fc);
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        margin: 0;
+    }
+
+    .container {
+        max-width: 400px;
+        padding: 2rem;
+        background-color: rgba(255, 255, 255, 0.1);
+        border-radius: 12px;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    .form-container {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .input {
+        padding: 0.8rem;
+        font-size: 1rem;
+        border: none;
+        border-radius: 8px;
+        outline: none;
+        background: rgba(255, 255, 255, 0.8);
+        color: #333;
+    }
+
+    .btn {
+        padding: 0.8rem;
+        font-size: 1rem;
+        background-color: #2575fc;
+        color: #fff;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .btn:hover {
+        background-color: #1c63b8;
+    }
+
+    .greeting {
+        font-size: 1.2rem;
+        font-weight: bold;
+        text-align: center;
+        margin-top: 1rem;
+        color: #f4f4f9;
+    }
+</style>
