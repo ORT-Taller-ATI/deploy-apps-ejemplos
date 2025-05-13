@@ -1,0 +1,60 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: CloudFormation template to deploy an Amazon Linux 2023 instance with Docker
+
+Parameters:
+  InstanceType:
+    Description: EC2 instance type
+    Type: String
+    Default: t3.large
+    AllowedValues:
+      - t3.large
+      - t3.medium
+      - t3.small
+    ConstraintDescription: Must be a valid EC2 instance type.
+
+Resources:
+  InstanceSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Enable SSH and HTTP access
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          CidrIp: 0.0.0.0/0
+        - IpProtocol: tcp
+          FromPort: 80
+          ToPort: 80
+          CidrIp: 0.0.0.0/0
+
+  EC2Instance:
+    Type: AWS::EC2::Instance
+    Properties:
+      InstanceType: !Ref InstanceType
+      KeyName: vockey
+      SecurityGroupIds:
+        - !Ref InstanceSecurityGroup
+      ImageId: ami-0f88e80871fd81e91 # Amazon Linux 2023 (Update with the latest AMI ID)
+      UserData:
+        Fn::Base64: !Sub |
+          #!/bin/bash
+          sudo yum update -y
+          amazon-linux-extras enable docker
+          sudo yum install -y docker
+          sudo systemctl start docker
+          sudo systemctl enable docker
+          sudo usermod -aG docker ec2-user
+      Tags:
+        - Key: Name
+          Value: AmazonLinux2023-Docker-Instance
+
+Outputs:
+  InstanceId:
+    Description: The ID of the instance
+    Value: !Ref EC2Instance
+  PublicIP:
+    Description: Public IP address of the instance
+    Value: !GetAtt EC2Instance.PublicIp
+  SecurityGroupId:
+    Description: Security Group ID
+    Value: !Ref InstanceSecurityGroup
