@@ -1,39 +1,33 @@
-# Trabajando con una app en SpringBoot
+# Taller de Despliegue - ATI
 
-## Despliegue en Amazon EC2 con Linux
+## Ejemplos de Despliegue en AWS
 
-### Aplicación SpringBoot sin BD
+### Servicios a utilizar
 
-* Desplegar `EC2 Instance` con la AMI `Amazon Linux 2023`
-* Instalar el paquete `java-17-amazon-corretto`
-* Crear estructura del Proyecto con `SpringBoot Initializr`
-* Compilar la aplicación con `Gradle|Maven`
-* Ejecutar aplicación invocando al archivo JAR o WAR
+#### Servicios de Cómputo
 
-```sh
-sudo yum install java-17-amazon-corretto
-```
+* AWS EC2 (Windows y Linux)
+* AWS Elastic Beanstalk
+* AWS Amplify
 
-```sh
-./gradlew build
-```
+#### Servicios de Base de Datos
 
-La app se construye y se guarda el paquete en el directorio "build/libs/"
+* AWS RDS
+
+#### Otros servicios a trabajar
+
+ * AWS VPC
+  
+
+### Aplicaciones de Ejemplo
+
+```text
 .
-├── Dockerfile
-├── Dockerfile.multi-stages
-├── HELP.md
-├── build
-├── build.gradle
-├── gradle
-├── gradlew
-├── gradlew.bat
-├── settings.gradle
-├── src
-└── webapp-0.0.1-SNAPSHOT.jar
-
-4 directories, 8 files
-
-```sh
-java -jar webapp-0.0.1-SNAPSHOT.jar
+├── React-web-form
+├── SpringBoot-web-form
+├── SpringBoot-web-form-database
+├── aws-cloudformation-templates
+├── demo-app-nodejs-docker
+├── dotnet-web-form
+└── nodejs-web-form-beanstalk
 ```
