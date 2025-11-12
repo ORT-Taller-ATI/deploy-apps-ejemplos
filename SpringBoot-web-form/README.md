@@ -11,7 +11,7 @@
 * Ejecutar aplicación invocando al archivo JAR o WAR
 
 ```sh
-sudo yum install java-17-amazon-corretto
+sudo yum install java-17-amazon-corretto git java-17-amazon-corretto-devel
 ```
 
 ```sh
@@ -21,12 +21,12 @@ sudo yum install java-17-amazon-corretto
 4 directories, 8 files
 
 ```sh
-java -jar webapp-0.0.1-SNAPSHOT.jar
+java -jar build/libs/webapp-0.0.1-SNAPSHOT.jar
 ```
 
 ### Configurar System Daemon
 
-Para que la aplicación pueda seguir corriendo en background o inicializar junto con el sistema, se debe configurar SystemD para esto. 
+Para que la aplicación pueda seguir corriendo en background o inicializar junto con el sistema, se debe configurar SystemD para esto.
 
 ```sh
 sudo vim /etc/systemd/system/webapp.service
