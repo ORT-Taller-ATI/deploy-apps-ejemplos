@@ -22,12 +22,12 @@ function App() {
 
         <input
           type="text"
-          placeholder="Enter your name"
+          placeholder="Insertar Nombre"
           value={name}
           onChange={handleNameChange}
           className="w-full p-2 border border-gray-300 rounded mb-4 text-center focus:outline-none focus:ring-2 focus:ring-blue-400"
         />
-        
+
         <button
           onClick={handleGreet}
           className="w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-600 transition duration-200"
