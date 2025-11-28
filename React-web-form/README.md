@@ -34,8 +34,10 @@ npm start
 }
 ```
 
-Para subir el contenido al bucket de S3, debemos de construír el sitio. El resultado es un directorio `build` que debemos de comprimir con `zip` y subirlo al bucket. 
+Para subir el contenido al bucket de S3, debemos de construír el sitio. El resultado es un directorio `build` que debemos de comprimir con `zip` y subirlo al bucket.
 
 ```sh
 npm run build
 ```
+
+### Deploy Web App Versel
