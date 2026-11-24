@@ -1,0 +1,101 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: CloudFormation template to deploy an Amazon Linux 2023 instance with the baseline for a Spring Boot app (Java 17 Corretto, Git, systemd service)
+
+Parameters:
+  InstanceType:
+    Description: EC2 instance type
+    Type: String
+    Default: t3.small
+    AllowedValues:
+      - t3.large
+      - t3.medium
+      - t3.small
+    ConstraintDescription: Must be a valid EC2 instance type.
+  KeyName:
+    Description: Name of an existing EC2 KeyPair to enable SSH access
+    Type: AWS::EC2::KeyPair::KeyName
+    Default: vockey
+  LatestAmiId:
+    Description: Latest Amazon Linux 2023 AMI (resolved from SSM, no need to update)
+    Type: AWS::SSM::Parameter::Value<AWS::EC2::Image::Id>
+    Default: /aws/service/ami-amazon-linux-latest/al2023-ami-kernel-default-x86_64
+  AppPort:
+    Description: Port where the Spring Boot app listens
+    Type: Number
+    Default: 8080
+  AppJarName:
+    Description: File name of the JAR the systemd service will run (copied later to /opt/webapp)
+    Type: String
+    Default: webapp-0.0.1-SNAPSHOT.jar
+
+Resources:
+  InstanceSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Enable SSH and Spring Boot access
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          CidrIp: 0.0.0.0/0
+        - IpProtocol: tcp
+          FromPort: !Ref AppPort
+          ToPort: !Ref AppPort
+          CidrIp: 0.0.0.0/0
+
+  EC2Instance:
+    Type: AWS::EC2::Instance
+    Properties:
+      InstanceType: !Ref InstanceType
+      KeyName: !Ref KeyName
+      SecurityGroupIds:
+        - !Ref InstanceSecurityGroup
+      ImageId: !Ref LatestAmiId
+      UserData:
+        Fn::Base64: !Sub |
+          #!/bin/bash
+          dnf update -y
+          dnf install -y java-17-amazon-corretto java-17-amazon-corretto-devel git
+
+          # Application directory
+          mkdir -p /opt/webapp
+          chown ec2-user:ec2-user /opt/webapp
+
+          # systemd service (enabled, starts once the JAR is copied to /opt/webapp)
+          cat > /etc/systemd/system/webapp.service <<'EOF'
+          [Unit]
+          Description=Spring Boot Application
+          After=network.target
+
+          [Service]
+          User=ec2-user
+          ExecStart=/usr/bin/java -jar /opt/webapp/${AppJarName} --server.port=${AppPort}
+          WorkingDirectory=/opt/webapp
+          Restart=always
+          StandardOutput=journal
+          StandardError=journal
+          SyslogIdentifier=webapp
+
+          [Install]
+          WantedBy=multi-user.target
+          EOF
+
+          systemctl daemon-reload
+          systemctl enable webapp
+      Tags:
+        - Key: Name
+          Value: AmazonLinux2023-SpringBoot-Instance
+
+Outputs:
+  InstanceId:
+    Description: The ID of the instance
+    Value: !Ref EC2Instance
+  PublicIP:
+    Description: Public IP address of the instance
+    Value: !GetAtt EC2Instance.PublicIp
+  AppURL:
+    Description: URL of the Spring Boot app (once the JAR is deployed)
+    Value: !Sub http://${EC2Instance.PublicIp}:${AppPort}
+  SecurityGroupId:
+    Description: Security Group ID
+    Value: !Ref InstanceSecurityGroup

@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("dotnet-web-form")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+15d59d3d3b844f93e8505849e083fe18ec9bd6a8")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9868ee4b5bccc4e1ad83c9a70b381e1cc030c981")]
 [assembly: System.Reflection.AssemblyProductAttribute("dotnet-web-form")]
 [assembly: System.Reflection.AssemblyTitleAttribute("dotnet-web-form")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

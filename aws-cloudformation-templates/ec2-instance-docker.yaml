@@ -11,6 +11,10 @@ Parameters:
       - t3.medium
       - t3.small
     ConstraintDescription: Must be a valid EC2 instance type.
+  LatestAmiId:
+    Description: Latest Amazon Linux 2023 AMI (resolved from SSM, no need to update)
+    Type: AWS::SSM::Parameter::Value<AWS::EC2::Image::Id>
+    Default: /aws/service/ami-amazon-linux-latest/al2023-ami-kernel-default-x86_64
 
 Resources:
   InstanceSecurityGroup:
@@ -34,7 +38,7 @@ Resources:
       KeyName: vockey
       SecurityGroupIds:
         - !Ref InstanceSecurityGroup
-      ImageId: ami-0f88e80871fd81e91 # Amazon Linux 2023 (Update with the latest AMI ID)
+      ImageId: !Ref LatestAmiId
       UserData:
         Fn::Base64: !Sub |
           #!/bin/bash
